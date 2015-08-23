@@ -1,0 +1,134 @@
+<?php
+echo '<?xml version="1.0" encoding="UTF-8" />';
+echo $this->doctype();
+$aNamespace = new Zend_Session_Namespace(Constant::USER_DATA);
+$cityObj = $aNamespace->city;
+?>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title><?php if($this->pageTitle != null) 
+	echo $this->pageTitle;
+	else{
+	?>租个房子 | 海外瑞典华人租房网 - <?php echo $cityObj->name_cn_long;?><?php }?></title>
+	<meta name="description" content="<?php if($this->pageDesc != null) 
+	echo $this->pageDesc;
+	else{
+	?>租个房子 | 海外瑞典华人租房网  (rent a house)-  斯德哥尔摩(Stockholm) 乌普萨拉(Uppsala) 维斯特罗斯(Västerås) 哥德堡(Göteborg) 马尔默 (Malmö) 隆德 (Lund) |希望能为海外的华人朋友们提供一个互助，便捷，免费的房屋租赁平台.<?php }?>" />
+	
+	<?php 
+	$config = Zend_Registry::get('config');?>
+	
+	<?php if($this->pageImage == "want") {?>
+	<link rel="image_src" href="<?php echo $config->baseurl."/img/icon-want.png"; ?>" />
+	<?php }?>
+	<?php if($this->pageImage == "lease") {?>
+	<link rel="image_src" href="<?php echo $config->baseurl."/img/icon-own.png"; ?>" />
+	<?php }?>
+	<?php if($this->pageImage == "business") {?>
+	<link rel="image_src" href="<?php echo $config->baseurl."/img/icon-business.png"; ?>" />
+	<?php }?>
+	
+	<link type="image/x-icon"  rel="icon" href="<?php echo $config->baseurl."/img/favicon.ico"?>">
+	<link type="image/x-icon"  rel="shortcut icon" href="<?php echo $config->baseurl."/img/favicon.ico"?>">
+	<?php 
+	$this->headLink()->prependStylesheet($config->baseurl.'/css/layout.css');
+	$this->headLink()->prependStylesheet($config->baseurl.'/css/reset.css');
+
+	$this->headScript()->prependFile($config->baseurl.'/js/jquery-1.4.2.min.js');
+	
+	echo $this->headLink();
+	?>
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25252945-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body class="<?php echo $this->class;?>">
+
+
+<div id="headerWrapper">
+<?php if($this->pageLogo=="big"){
+	
+	?>
+	<a id="logoBig" href="<?php echo $this->url(array('controller'=>'index','action'=>'index'), 'index');?>"></a>
+	<?php
+} else {?>
+<a id="logo" href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list'), 'list');?>">租个房子 | 海外华人租房网 - <?php echo $cityObj->name_cn;?>站</a>
+<div id="cityChoose">海外华人租房网 - <?php echo $cityObj->name_cn;?> <a href="<?php echo $this->url(array('controller'=>'index','action'=>'index'), 'home');?>">换个城市</a></div>
+<div id="topRight">
+<div id="catchword">欢迎光临本站，希望能为海外的华人朋友们提供一个互助，便捷，免费的房屋租赁平台。</div>
+<div id="topLinks"> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'index'), 'index');?>">首页</a>
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'about'), 'about');?>">关于本站</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'help'), 'help');?>">帮助</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'contact'), 'contact');?>">联系我们</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'links'), 'links');?>">友情链接</a>
+<!-- <a href="<?php echo $this->url(array('controller'=>'index','action'=>'guestbook'), 'guestbook');?>">留言板</a>-->   </div>
+
+<div id=menu>
+<a id="menuLocalHelp" href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'localhelp', 'city'=>$cityObj->name),'localhelp',true);?>">找房贴士</a>
+<a id="menuPost" href="<?php echo $this->url(array('city'=>$cityObj->name),'create',true);?>">发个帖子</a>
+<a id="menuView" href="<?php echo $this->url(array('city'=>$cityObj->name),'list',true);?>">看看帖子</a>
+</div></div>
+</div>
+<?php }?>
+
+<div id="wrapper">
+
+<div id="contentWrapper">
+<div id="contentHeader">
+<div id="contentlt"></div>
+<div id="contentt"></div>
+<div id="contentrt"></div>
+</div>
+
+<div id="content">
+
+<?php
+if(count($this->flashmsgs)>0) {?> <div class="flashMsg"> <?php
+foreach($this->flashmsgs as $msg) {
+	echo $msg;
+}?> </div> <?php }?>
+
+<div id="contentInner">
+
+<?php 
+
+echo $this->layout()->content;
+
+?>
+</div>
+</div>
+
+<div id="contentFooter">
+<div id="contentlb"></div>
+<div id="contentb"></div>
+<div id="contentrb"></div>
+</div>
+</div>
+<div id="footer" style="width:945px;">
+<div style="float:left;">© 2011 zugefangzi.com, All Rights Reserved </div>
+<?php if($this->pageLogo=="big"){?><div id="topLinks">
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'index'), 'index');?>">首页</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'about'), 'about');?>">关于本站</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'help'), 'help');?>">帮助</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'contact'), 'contact');?>">联系我们</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'links'), 'links');?>">友情链接</a>
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'guestbook'), 'guestbook');?>">留言板</a></div>
+<?php }?>
+
+</div>
+</div>
+
+</body>
+<?php echo $this->headScript();?>

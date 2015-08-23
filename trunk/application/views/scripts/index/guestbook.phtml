@@ -1,0 +1,40 @@
+<div>
+<div id="guestbookTitle">留言板</div>
+<a id="btnAddMessage" href="#messageForm">我要留言</a>
+	<div class="dashline"></div>
+<ul id="guestbook" class="items">
+<?php 
+	$config = Zend_Registry::get('config');?>
+<?php 
+foreach ($this->paginator as $message) {
+	$user = Message::getUser($message->id); ?>
+
+	<li>
+	<div class="messageColumn">
+		<div  style="float:left;clear:both;">
+			<h3 class="title" style="float:left;line-height:40px;"><?php echo $user->name;?></h3>
+			<div style="float:left;margin:20px 0 0 15px;"><?php echo $this->PostDate($message->created);?></div>
+		</div>
+		<div class="messageBody"><?php echo $message->body;?></div>
+	
+	</div>
+	<div class="imageColumn"><img width="70px" height="70px"  src="<?php echo $config->baseurl.'/img/thumbnail.png';?>"></img></div>
+	</li>
+	<div class="dotline"></div>
+<?php 
+} ?>
+</ul>
+<div class="dashline"></div>
+
+</div>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+
+<div style="display:block;clear:both;">
+<a name="messageForm"></a>
+<h3 class="title" style="margin:20px 0;">添加留言</h3>
+<div class="dotline" style="width:550px;"></div>
+
+<?php
+echo $this->form;
+?>
+</div>

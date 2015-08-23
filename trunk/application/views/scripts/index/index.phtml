@@ -1,0 +1,138 @@
+<?php
+echo '<?xml version="1.0" encoding="UTF-8" />';
+echo $this->doctype();
+$aNamespace = new Zend_Session_Namespace(Constant::USER_DATA);
+$city = $aNamespace->city;
+?>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>租个房子 | 海外（瑞典）华人租房网 </title>
+		<meta name="description" content="租个房子 | 海外（瑞典，欧洲）华人租房网  (rent a house for chinese) 找房 - 瑞典（Sweden） 斯德哥尔摩(Stockholm) 乌普萨拉(Uppsala) 维斯特罗斯(Västerås) 哥德堡(Göteborg) 马尔默 (Malmö) 隆德 (Lund) |属于海外的华人的(打工，移民，留学生，背包客，穷游，长租，短租)互助，便捷，免费的房屋租赁平台." />
+	<?php 
+	$config = Zend_Registry::get('config');?>
+	<link type="image/x-icon"  rel="icon" href="<?php echo $config->baseurl."/img/favicon.ico"?>">
+	<link type="image/x-icon"  rel="shortcut icon" href="<?php echo $config->baseurl."/img/favicon.ico"?>">
+	<?php 
+	$this->headLink()->prependStylesheet($config->baseurl.'/css/reset.css');
+	$this->headScript()->prependFile($config->baseurl.'/js/jquery-1.4.2.min.js');
+
+	
+	echo $this->headLink();
+	?>
+		<style type="text/css">
+body{text-align:center;line-height:1;color:#666;}
+#wrapper{width:845px;margin:20px auto 0;}
+
+#logo{margin:0 auto;display:block;width:675px;height:172px;background:transparent url("<?php echo $config->baseurl.'/img/logoBig.png';?>") no-repeat;}
+#categoryBar{ margin-top: 24px;width:845px;float:left;clear:both;}
+#categoryBar div{width:215px;height:116px;text-indent:-9999px;float:left;}
+#shortWant{background:transparent url("<?php echo $config->baseurl.'/img/homedq.png';?>") no-repeat;}
+#shortLease{background:transparent url("<?php echo $config->baseurl.'/img/homedg.png';?>") no-repeat;}
+#longWant{background:transparent url("<?php echo $config->baseurl.'/img/homecq.png';?>") no-repeat;}
+#longLease{width:200px !important;background:transparent url("<?php echo $config->baseurl.'/img/homecg.png';?>") no-repeat;}
+#summaryBar{float:left;margin-top:20px;clear:both;width:845px; height:62px;}
+#summaryBarText{float:left;text-indent:-9999px;width:770px; height:62px; background:transparent url("<?php echo $config->baseurl.'/img/homejz.png';?>") no-repeat;}
+#content{float:left;clear:both;margin-top:10px;}
+#cities{float:left;width:845px;}
+ul.country{width:880px;font-family:"黑体";font-weight:700;margin:0;padding:0;color:#ADA59E;clear:both;margin-top:10px;float:left;}
+ul.country h2{float:left;margin-right:30px;text-indent:-9999px;}
+#sweden h2{width:58px;height:30px;background:transparent url("<?php echo $config->baseurl.'/img/tSweden.png';?>") no-repeat;}
+#other h2{width:58px;height:30px;background:transparent url("<?php echo $config->baseurl.'/img/tOther.png';?>") no-repeat;}
+#add h2{width:180px;height:30px;background:transparent url("<?php echo $config->baseurl.'/img/tAdd.png';?>") no-repeat;}
+#cities li{float:left;font-size:20px;line-height:35px;margin-right:30px;text-align:left;}
+#cities li a span{font-family: arial;font-size: 14px;margin-left: 10px;}
+a{color:#ADA59E;text-decoration:none;}
+a:hover{background-color:#F4EBE4; color:#ADA59E;text-decoration:none;}
+p{padding-bottom:10px; font-size:25px;line-height:48px;}
+#socialDiv a:hover{background-color:#FFF;}
+
+#facebookt{display:none;}
+#sinaBtn{float:left; margin:10px 0 0 5px;display:block;padding:0;width:32px;height:32px;background:transparent url("<?php echo $config->baseurl.'/img/sina_32.png';?>") no-repeat;}
+#facebookBtn{float:left; margin:14px 0 0 5px;display:block;padding:0;width:32px;height:32px;background:transparent url("<?php echo $config->baseurl.'/img/facebook_32.png';?>") no-repeat;}
+
+#footer{border-top:1px solid #EEEEEE;width:845px;font-size:12px;float:left; clear:both;color:#999;margin:50px 0 0 4px;padding:14px 0;}
+#topLinks{float:right;width:374px; *width:380px;}
+#topLinks a{margin:0 0 5px 20px;text-decoration:none;color:#FF9933;}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<a href="" id="logo"></a>
+
+<div id="categoryBar">
+<div id="shortWant">背包穷游？亲友来访？</div>
+<div id="shortLease">回国探亲？全家出游？</div>
+<div id="longWant">初来乍到？找地落脚？</div>
+<div id="longLease">房屋空置？邀人合住？</div>
+</div>
+
+<div id="summaryBar">
+<div id="summaryBarText">尽在租个房子-- 属于海外华人的 互助免费便捷的 房屋租赁平台</div>
+<div style="float:left;">
+<a title="我们的新浪微博账户" id="sinaBtn" href="http://t.sina.com.cn/zugefangzi"></a>
+<a title="我们的facebook主页" id="facebookBtn" href="http://www.facebook.com/pages/zu-ge-fang-zi-hai-wai-hua-ren-zu-fang-wang-zugefangzicom/157294627616847"></a>
+</div>
+</div>
+
+<div id="content">
+<div id="cities">
+<ul class="country" id="sweden">
+<h2>瑞典</h2>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list', 'city'=>'stockholm'), 'list');?>">斯德哥尔摩</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list','city'=>'east'), 'list');?>">瑞典东部<span>乌普萨拉，韦斯特罗斯 等</span></a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list','city'=>'south'), 'list');?>">瑞典南部<span>马尔默，隆德，卡尔斯克鲁纳 等</span></a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list','city'=>'west'), 'list');?>">瑞典西部<span>哥德堡，哈尔姆斯塔德 等</span></a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list','city'=>'nearsouth'), 'list');?>">瑞典近南部<span>林雪萍  等</span></a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list','city'=>'southeast'), 'list');?>">瑞典东南部<span>延雪萍，维克舍  等</span></a></li>
+<li style="width:380px;"><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list','city'=>'north'), 'list');?>">瑞典北部<span>达拉那，卡尔斯塔德，博伦厄，耶夫勒 等</span></a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list','city'=>'farnorth'), 'list');?>">瑞典最北部<span>于默奥，吕勒奥 等</span></a></li>
+</ul>
+<ul class="country" id="other">
+<h2>其它</h2>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list', 'city'=>'copenhagen'), 'list');?>">丹麦哥本哈根</a></li>
+<li><a href="<?php echo $this->url(array('controller'=>'bulletin','action'=>'list', 'city'=>'paris'), 'list');?>">法国巴黎</a></li>
+</ul>
+
+<ul class="country" id="add">
+<h2>期待您的加入</h2>
+<li style="width:300px;"><a style="color:#FF9933;" href="<?php echo $this->url(array('controller'=>'index','action'=>'newcity'), 'newcity');?>">+ 开通您所在的城市地区！</a> </li>
+</ul>
+</div>
+<!-- NEWS FEED Widget for sina and facebook
+<div style="float:left;width:300px;">
+<iframe id="sinat" width="300" height="430" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?width=300&height=430&fansRow=1&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1909309857&verifier=18d13c43"></iframe>
+<iframe id="facebookt" src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F%25E7%25A7%259F%25E4%25B8%25AA%25E6%2588%25BF%25E5%25AD%2590-%25E6%25B5%25B7%25E5%25A4%2596%25E5%258D%258E%25E4%25BA%25BA%25E7%25A7%259F%25E6%2588%25BF%25E7%25BD%2591-zugefangzicom-%25E7%2591%259E%25E5%2585%25B8%25E5%258C%25BA%2F157294627616847&amp;width=300&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:427px;" allowTransparency="true"></iframe>
+</div>
+ -->
+
+</div>
+
+<div id="footer">
+<div style="float:left;">© 2011 zugefangzi.com, All Rights Reserved </div>
+<?php if($this->pageLogo=="big"){?><div id="topLinks">
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'index'), 'index');?>">首页</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'about'), 'about');?>">关于本站</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'help'), 'help');?>">帮助</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'contact'), 'contact');?>">联系我们</a> 
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'links'), 'links');?>">友情链接</a>
+<a href="<?php echo $this->url(array('controller'=>'index','action'=>'guestbook'), 'guestbook');?>">留言板</a></div>
+<?php }?>
+
+</div>
+
+</div>
+<?php echo $this->headScript();?>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#facebookBtn").hover(function(){
+		$("#facebookt").show();
+		$("#sinat").hide();
+		;});
+	$("#sinaBtn").hover(function(){
+		$("#facebookt").hide();
+		$("#sinat").show();
+		;});
+});
+</script>
+</body>

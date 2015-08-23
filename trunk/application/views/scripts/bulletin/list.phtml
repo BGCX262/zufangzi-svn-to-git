@@ -1,0 +1,94 @@
+<!-- <a id="searchSwitch">隐藏搜索</a>  -->
+<div id="notification">
+重要提醒：近日有些房源有欺诈嫌疑，请各位心急的找房的朋友注意：1 位置好，价钱便宜，照片像宾馆 2 主人暂时不在瑞典，要求先付款
+<a id="closeNotification" href="javascript:void(0)">我知道了！</a></div>
+
+
+<?php
+$aNamespace = new Zend_Session_Namespace(Constant::USER_DATA);
+$cityObj = $aNamespace->city;?>
+
+
+<?php
+if ($cityObj->name == "stockholm"){?>
+<div id="adAgency">
+对于长期找房未果又急需落脚点的朋友，即日起开通中介服务，帮您找房，费用为半个月房租。本站的原有主体功能依然免费。
+<a id="closeNotification" href="<?php echo $this->url(array('city'=>$cityObj->name, 'next'=>$this->currentURI), 'createadvertisingagency');?>">我要试试！</a>
+</div>
+<?php }?>
+
+<div id="searchSection">
+<div><?php 
+echo $this->searchForm;
+?></div>
+	<div class="dotline"></div>
+</div>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+
+<div style="width:910px;float:left;clear:both;">
+<div class="dashline"></div>
+<ul class="items">
+<?php
+foreach ($this->paginator as $advertisement) { 	
+	?>
+
+	<li>
+	<?php if($advertisement->status == "closed"){?>
+		<div class="closedMark"></div>
+	<?php }?>
+		<div class="itemTime"><?php echo $this->PostDate($advertisement->created);?></div>
+		<div class="itemType"><div class="
+<?php if($advertisement->type == "lease") echo "itemLease"; else echo "itemWant";?>
+
+"></div></div>
+<?php if ($advertisement->category_id == Category::SHOP) {?>
+<div class="itemTypeExtra"><div class="itemBusiness"></div></div>
+
+		<div class="itemContent" style="width:700px;">
+<?php } else { ?>
+		<div class="itemContent">
+<?php }?>		
+		<h3 class="title"><a href="<?php echo $this->url(array('id'=>$advertisement->id, 'city'=>$cityObj->name), 'view');?>"><?php echo $advertisement->title; ?></a></h3>
+		<div class="detail">
+		
+			<div class="detailItem">
+				<div class="itemVar"><?php if($advertisement->type == "want") echo "最高";?>房租</div>
+				<div class="itemValue"><?php echo $advertisement->rent." ".$this->RentFormat($advertisement);?> </div>
+			</div>
+			
+			<div class="detailItem">
+				<div class="itemVar">时间</div>
+				<div class="itemValue"><?php echo $advertisement->start_date;
+				if(!$this->dateIsLongTerm($advertisement->stop_date))
+					echo "到".$advertisement->stop_date;
+				else
+					echo "起长期";
+				?></div>
+			</div>
+			
+<?php if($advertisement->area != null && $advertisement->area > 0) {?>
+<div class="detailItem">
+	<div class="itemVar"><?php if($advertisement->type == "want") echo "最小";?>面积 </div>
+	<div class="itemValue"><?php echo $advertisement->area; ?> 平方米</div>
+</div>
+<?php } ?>
+
+<?php if($advertisement->num_of_room != null ) {?>
+<div class="detailItem">
+	<div class="itemVar"><?php if($advertisement->type == "want") echo "最少";?>房间数</div>
+	<div class="itemValue"><?php echo $advertisement->num_of_room; ?> </div>
+</div>
+<?php } ?>
+				
+		</div>
+		</div>
+
+	</li>
+	<div class="dotline"></div>
+	<?php
+	}
+?>
+</ul>
+<div class="dashline"></div>
+</div>
+<?php  echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
